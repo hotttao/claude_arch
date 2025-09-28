@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package gateway.trade;
+
+// go_package 不能写成 "/gateway/indicator"
+option go_package = "gateway/trade";
+
+import "api.proto";
+
+// 定义服务
+service TradeService {
+  // 交易接口 (POST)
+  rpc CreateTrade (CreateTradeRequest) returns (CreateTradeResponse) {
+    option (api.post) = "/api/v1/trade";
+  }
+}
+
+// 交易请求
+message CreateTradeRequest {
+  string strategy = 1; // 策略名称
+  string date     = 2; // 日期，格式: yyyy-MM-dd
+}
+
+// 交易返回
+message CreateTradeResponse {
+  bool success     = 1; // 是否成功
+  string message   = 2; // 返回信息
+}

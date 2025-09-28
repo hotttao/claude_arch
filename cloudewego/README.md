@@ -40,3 +40,12 @@ mkdir strategy
 cd strategy
 kitex -module strategy  -service quant.strategy -I ..\idl\ ..\idl\strategy\strategy.proto
 ```
+
+### 2.2 生成 http 代码
+
+```bash
+mkdir gateway
+cd gateway
+hz new -module gateway -I ../idl -idl ../idl/gateway/stock.proto
+hz update -I ../idl -idl ../idl/gateway/trade.proto
+```
