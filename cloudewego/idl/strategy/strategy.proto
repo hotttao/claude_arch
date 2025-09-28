@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package strategy;
+
+// grpc server go_package 必须以 / 开头，而 http server 必须不能以 / 开头
+option go_package = "strategy";
+
+
+service StrategyService {
+  // 获取策略筛选的股票
+  rpc QueryStrategySelected(QueryStrategySelectedReq) returns (QueryStrategySelectedRes) {}
+}
+
+message QueryStrategySelectedReq {
+  string data_date = 1;
+  string strategy = 2;
+}
+
+message QueryStrategySelectedRes {
+  repeated string symbols = 1;
+}

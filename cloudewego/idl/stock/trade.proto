@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package stock;
+
+// grpc server go_package 必须以 / 开头，而 http server 必须不能以 / 开头
+option go_package = "stock/trade";
+
+
+service StockTradeService {
+  // 获取股票交易数据
+  rpc GetStockTradeData(GetStockTradeDataReq) returns (GetStockTradeDataRes) {}
+
+  // 服务端流式 RPC，客户端发送单个请求，服务端返回一系列响应
+  rpc StreamTradeData(StreamTradeDataReq) returns (stream StreamTradeDataRes) {}
+}
+
+
+message StockTrade {
+  string symbol = 1;  // 证券代码
+  string data_time = 2;  // 交易所行情日期
+  float open = 3;  // 开盘价
+  float close = 4; // 收盘价
+}
+
+
+message GetStockTradeDataReq {
+    string data_date = 1;
+    int32 days = 2;
+    repeated string symbols = 3;
+}
+
+message GetStockTradeDataRes {
+  repeated string trade_dates = 2;
+    repeated StockTrade trade_data = 1;
+}
+
+
+message StreamTradeDataReq {
+  repeated string symbols = 1;
+}
+
+message StreamTradeDataRes {
+  map<string, StockTrade> trade_data = 1;
+}

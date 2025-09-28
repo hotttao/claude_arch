@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package trade;
+
+option go_package = "trade/order";
+
+import "google/protobuf/timestamp.proto";
+
+// 订单服务
+service OrderService {
+  // 下单接口
+  rpc PlaceOrder(OrderRequest) returns (OrderResponse);
+}
+
+// 订单方向
+enum OrderSide {
+  BUY = 0;  // 买入
+  SELL = 1; // 卖出
+}
+
+// 订单类型
+enum OrderType {
+  MARKET = 0;  // 市价单
+  LIMIT = 1;   // 限价单
+}
+
+// 订单状态
+enum OrderStatus {
+  PENDING = 0;    // 待处理
+  SUBMITTED = 1;  // 已提交
+  PARTIAL = 2;    // 部分成交
+  FILLED = 3;     // 全部成交
+  CANCELED = 4;   // 已取消
+  REJECTED = 5;   // 被拒绝
+  EXPIRED = 6;    // 已过期
+}
+
+// 下单请求
+message OrderRequest {
+  string symbol = 1;        // 股票代码
+  OrderSide side = 2;       // 买卖方向
+  OrderType type = 3;       // 订单类型
+  double quantity = 4;      // 数量
+  double price = 5;         // 价格（市价单可不填）
+//   string client_order_id = 6; // 客户端订单ID
+//   int32 time_in_force = 7;  // 订单有效期(以秒为单位，0表示当日有效)
+}
+
+// 下单响应
+message OrderResponse {
+  string order_id = 1;      // 订单ID
+//   string client_order_id = 2; // 客户端订单ID
+  OrderStatus status = 3;   // 订单状态
+  string message = 4;       // 消息（成功或失败原因）
+  google.protobuf.Timestamp create_time = 5; // 创建时间
+}

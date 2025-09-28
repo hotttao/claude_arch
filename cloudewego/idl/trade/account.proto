@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package trade;
+
+option go_package = "trade/account";
+
+
+// 账户服务
+service AccountService {
+  // 查询持仓
+  rpc QueryPositions(QueryPositionsRequest) returns (QueryPositionsResponse);
+  // 查询账户资金
+  rpc QueryAccount(QueryAccountRequest) returns (QueryAccountResponse);
+}
+
+// 查询持仓请求
+message QueryPositionsRequest {
+  string account_id = 1;    // 账户ID
+  string symbol = 2;        // 股票代码（可选，不填则查询所有）
+}
+
+// 查询持仓响应
+message QueryPositionsResponse {
+  repeated Position positions = 1; // 持仓列表
+}
+
+// 持仓信息
+message Position {
+  string symbol = 1;        // 股票代码
+  double quantity = 2;      // 持仓数量
+  double avg_cost = 3;      // 平均成本
+  double market_value = 4;  // 市值
+  double current_price = 7; // 当前价格
+}
+
+// 查询账户资金请求
+message QueryAccountRequest {
+  string account_id = 1;    // 账户ID
+}
+
+// 查询账户资金响应
+message QueryAccountResponse {
+  AccountInfo account = 1;  // 账户信息
+}
+
+// 账户信息
+message AccountInfo {
+  string account_id = 1;    // 账户ID
+  double cash_balance = 2;  // 现金余额
+}
