@@ -141,7 +141,7 @@ hz update -I ../idl -idl ../idl/gateway/trade.proto
 │   │   └── stock                      // stock 对应  protobuf idl go_package 的最后一级
 │   │           └── stock.go           // protobuf go 的产物，包含 stock.protoc 定义的内容的 go 代码，update 时会重新生成
 │   └── router                         // idl 中定义的路由相关生成代码
-│       ├── stock                      // hello/example 对应 thrift idl 中定义的 namespace；而对于 protobuf idl，则是对应 go_package 的最后一级
+│       ├── stock                      // 对应 protobuf idl，go_package 的最后一级
 │       │       ├── stock.go           // hz 为 stock.protoc 中定义的路由生成的路由注册代码；每次 update 相关 idl 会重新生成该文件
 │       │       └── middleware.go      // 默认中间件函数，hz 为每一个生成的路由组都默认加了一个中间件；update 时会查找当前文件已有的 middleware 在尾部追加新的 middleware
 │       └── register.go                // 调用注册每一个 idl 文件中的路由定义；当有新的 idl 加入，在更新的时候会自动插入其路由注册的调用；勿动

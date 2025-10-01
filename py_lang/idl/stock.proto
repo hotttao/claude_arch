@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package gateway.stock;
+package stock;
 
 // go_package 不能写成 "/gateway/indicator"
-option go_package = "gateway/stock";
+option go_package = "stock";
 
 import "api.proto";
 
