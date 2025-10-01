@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package gateway.stock;
+
+// go_package 不能写成 "/gateway/indicator"
+option go_package = "gateway/stock";
+
+import "api.proto";
+
+// 定义服务
+service StockService {
+
+  // 获取股票交易数据接口 (GET)
+  rpc GetStockTradeData (GetStockTradeDataRequest) returns (GetStockTradeDataResponse) {
+    option (api.get) = "/api/v1/stock/:symbol/date/:date";
+  }
+}
+
+// 获取交易数据请求
+message GetStockTradeDataRequest {
+  string symbol = 1; // 股票代码
+  string date   = 2; // 日期
+}
+
+// 获取交易数据返回
+message GetStockTradeDataResponse {
+  string symbol      = 1; // 股票代码
+  string date        = 2; // 日期
+  double open  = 3; // 开盘价
+  double close = 4; // 收盘价
+  double high  = 5; // 最高价
+  double low   = 6; // 最低价
+  int64 volume       = 7; // 成交量
+}
