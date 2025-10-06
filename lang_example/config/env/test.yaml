@@ -1,0 +1,19 @@
+# 测试环境配置
+
+server:
+  host: "localhost"
+  port: 8001
+  debug: true
+
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    username: "test_user"
+    password: "test_password"
+    database: "lang_example_test"
+
+  redis:
+    host: "localhost"
+    port: 6379
+    db: 1

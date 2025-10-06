@@ -1,0 +1,27 @@
+# 默认配置文件
+server:
+  host: "0.0.0.0"
+  port: 8000
+  debug: true
+
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    username: "root"
+    password: "password"
+    database: "lang_example"
+
+  redis:
+    host: "localhost"
+    port: 6379
+    db: 0
+
+security:
+  secret_key: "your-secret-key-change-in-production"
+  algorithm: "HS256"
+  access_token_expire_minutes: 30
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
